@@ -23,7 +23,7 @@ import javax.net.ssl.SSLContext;
 
 /**
  * @Description
- * @Author duanxiaolei@bytedance.com
+ * @Author galaxy-captain
  * @Date 2020/3/23 2:23 下午
  **/
 @EnableConfigurationProperties(HttpProperties.class)

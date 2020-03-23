@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * @Description
- * @Author duanxiaolei@bytedance.com
+ * @Author galaxy-captain
  * @Date 2020/3/23 3:52 下午
  **/
 @EnableFeignClients(basePackages = {"me.galaxy.archetype.infra"})

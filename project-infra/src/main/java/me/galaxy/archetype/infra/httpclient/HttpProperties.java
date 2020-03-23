@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @Description
- * @Author duanxiaolei@bytedance.com
+ * @Author galaxy-captain
  * @Date 2020/3/23 2:24 下午
  **/
 @ConfigurationProperties(prefix = "spring.http.client")
