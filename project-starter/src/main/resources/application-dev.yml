@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+spring:
+  http:
+    converters:
+      preferred-json-mapper:
+    client:
+          connection-request-timeout: 10000
+          connect-timeout: 10000
+          socket-timeout: 20000
+          pool-total-max: 256
+          pool-route-max: 32

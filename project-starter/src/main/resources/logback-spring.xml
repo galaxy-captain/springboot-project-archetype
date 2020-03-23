@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+
+    <property name="encoding" value="UTF-8"/>
+    <property name="normal-pattern" value="[%-5p] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%C{1}:%M:%L] [%thread] %m%n"/>
+
+    <!--控制台日志-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${normal-pattern}</pattern>
+            <charset>${encoding}</charset>
+        </encoder>
+    </appender>
+
+    <!-- 配置打印到控制台的环境 -->
+    <springProfile name="dev">
+        <root level="info">
+            <appender-ref ref="console"/>
+        </root>
+    </springProfile>
+
+    <!-- 配置打印到控制台的环境 -->
+    <springProfile name="test">
+        <root level="info">
+            <appender-ref ref="console"/>
+        </root>
+    </springProfile>
+
+    <!-- 配置打印到控制台的环境 -->
+    <springProfile name="prd">
+        <root level="info">
+            <appender-ref ref="console"/>
+        </root>
+    </springProfile>
+
+</configuration>

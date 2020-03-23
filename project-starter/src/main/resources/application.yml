@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: springboot-project-archetype
+
+logging:
+  config: classpath:logback-spring.xml
