@@ -1,5 +1,10 @@
 package me.galaxy.archetype.infra.httpclient;
 
+import me.galaxy.archetype.infra.utils.CollectionUtils;
+import org.apache.http.HttpException;
+import org.apache.http.HttpRequestInterceptor;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpResponseInterceptor;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
@@ -11,15 +16,22 @@ import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.protocol.HttpContext;
 import org.apache.http.ssl.SSLContextBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.AnnotationAwareOrderComparator;
+import org.springframework.core.annotation.Order;
 
 import javax.annotation.Resource;
 import javax.net.ssl.SSLContext;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * @Description
@@ -82,17 +94,37 @@ public class HttpClientConfiguration {
         return config;
     }
 
+    @Order
     @Bean
     public CloseableHttpClient httpClient(HttpClientConnectionManager httpClientConnectionManager,
                                           SSLConnectionSocketFactory sslConnectionSocketFactory,
-                                          RequestConfig requestConfig) {
+                                          RequestConfig requestConfig,
+                                          @Autowired(required = false) List<HttpRequestInterceptor> httpRequestInterceptors,
+                                          @Autowired(required = false) List<HttpResponseInterceptor> httpResponseInterceptors) {
 
-        CloseableHttpClient httpclient = HttpClients.custom()
+        HttpClientBuilder builder = HttpClients.custom()
                 .setDefaultRequestConfig(requestConfig)
                 .setSSLSocketFactory(sslConnectionSocketFactory)
                 .setDefaultCookieStore(new BasicCookieStore())
-                .setConnectionManager(httpClientConnectionManager)
-                .build();
+                .setConnectionManager(httpClientConnectionManager);
+
+        // Request拦截器
+        if (CollectionUtils.isNotEmpty(httpRequestInterceptors)) {
+            AnnotationAwareOrderComparator.sort(httpRequestInterceptors);
+            for (HttpRequestInterceptor httpRequestInterceptor : httpRequestInterceptors) {
+                builder.addInterceptorLast(httpRequestInterceptor);
+            }
+        }
+
+        // Response拦截器
+        if (CollectionUtils.isNotEmpty(httpResponseInterceptors)) {
+            AnnotationAwareOrderComparator.sort(httpResponseInterceptors);
+            for (HttpResponseInterceptor httpResponseInterceptor : httpResponseInterceptors) {
+                builder.addInterceptorLast(httpResponseInterceptor);
+            }
+        }
+
+        CloseableHttpClient httpclient = builder.build();
 
         return httpclient;
     }

@@ -20,12 +20,12 @@ public class LookupController {
     private TestFeign testFeign;
 
     @GetMapping("/test")
-    public String test(){
+    public String test() {
         return testFeign.test();
     }
 
     @GetMapping("/test1")
-    public String test1(){
+    public String test1() {
         return "hello world";
     }
 
