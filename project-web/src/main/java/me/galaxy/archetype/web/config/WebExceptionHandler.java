@@ -71,7 +71,7 @@ public class WebExceptionHandler implements HandlerExceptionResolver {
 
     private void printExceptionLog(String logLevel, Exception e) {
 
-        String message = "Print exception cause log";
+        String message = "Log exception cause ===>";
         Throwable cause = e.getCause() == null ? e : e.getCause();
 
         switch (logLevel) {

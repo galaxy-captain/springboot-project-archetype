@@ -39,6 +39,7 @@ public class SessionHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object method) throws Exception {
+
         String url = request.getRequestURI(); // 访问路径
         String token = null; // 授权标识
         String language = "zh"; // 语言环境
@@ -54,19 +55,13 @@ public class SessionHandlerInterceptor implements HandlerInterceptor {
             }
         }
 
-        // 鉴权
-        authenticateRequest(url, token, language);
+        authenticateRequest(url, token, language); // 鉴权
 
-        return true; // 鉴权成功
+        return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        SessionHolder.clear();
-    }
-
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         SessionHolder.clear();
     }
 

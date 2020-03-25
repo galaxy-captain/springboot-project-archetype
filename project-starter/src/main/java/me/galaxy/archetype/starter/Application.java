@@ -4,9 +4,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.autoconfigure.AutoConfigurationExcludeFilter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.TypeExcludeFilter;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 
 /**
  * @Description
@@ -14,9 +19,16 @@ import org.springframework.context.annotation.ComponentScan;
  * @Date 2020/3/17 9:32 上午
  **/
 @Slf4j
-@SpringBootConfiguration
+@ComponentScan(
+        basePackages = "me.galaxy.archetype",
+        excludeFilters = {
+                @ComponentScan.Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),
+                @ComponentScan.Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class),
+                @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = FeignClient.class)
+        }
+)
 @EnableAutoConfiguration
-@ComponentScan(basePackages = "me.galaxy.archetype")
+@SpringBootConfiguration
 public class Application {
 
     public static void main(String[] args) {

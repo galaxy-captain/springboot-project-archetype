@@ -12,7 +12,7 @@ public class LocalAuthentication implements Authentication {
 
     @Override
     public boolean check(String token) {
-        return false;
+        return true;
     }
 
 }

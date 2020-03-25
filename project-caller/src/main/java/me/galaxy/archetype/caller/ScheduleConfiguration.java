@@ -1,15 +1,9 @@
 package me.galaxy.archetype.caller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.SchedulingConfigurer;
-import org.springframework.scheduling.config.ScheduledTaskRegistrar;
-
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.ThreadFactory;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 /**
  * @Description
@@ -18,21 +12,14 @@ import java.util.concurrent.ThreadFactory;
  **/
 @EnableScheduling
 @Configuration
-public class ScheduleConfiguration implements SchedulingConfigurer {
+public class ScheduleConfiguration {
 
-//    @Autowired
-//    @Qualifier("specificScheduledExecutor")
-//    private ScheduledThreadPoolExecutor scheduledThreadPoolExecutor;
-
-    @Override
-    public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-//        taskRegistrar.setScheduler(scheduledThreadPoolExecutor);
+    @Bean
+    public ThreadPoolTaskScheduler scheduledThreadPoolExecutor() {
+        ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+        scheduler.setThreadNamePrefix("thread-scheduler-");
+        scheduler.setPoolSize(32);
+        return scheduler;
     }
-
-//    @Bean(name = "specificScheduledExecutor", destroyMethod = "shutdown")
-//    public ScheduledThreadPoolExecutor scheduledThreadPoolExecutor() {
-//        ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(8);
-//        return scheduledThreadPoolExecutor;
-//    }
 
 }
