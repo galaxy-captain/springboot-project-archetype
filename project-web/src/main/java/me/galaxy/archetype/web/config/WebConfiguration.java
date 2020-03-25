@@ -27,15 +27,7 @@ import java.util.List;
 public class WebConfiguration implements WebMvcConfigurer {
 
     @Autowired
-    private WebExceptionHandler webExceptionHandler;
-
-    @Autowired
     private SessionHandlerInterceptor sessionHandlerInterceptor;
-
-    @Override
-    public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
-        resolvers.add(webExceptionHandler);
-    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
