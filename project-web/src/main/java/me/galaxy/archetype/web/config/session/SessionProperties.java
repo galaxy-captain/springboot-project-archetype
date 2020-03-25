@@ -1,19 +1,11 @@
-/*
- * *****************************************************
- * Copyright (C) 2020 bytedance.com. All Rights Reserved
- * This file is part of bytedance EA project.
- * Unauthorized copy of this file, via any medium is strictly prohibited.
- * Proprietary and Confidential.
- * ****************************************************
- */
-package me.galaxy.archetype.web.config;
+package me.galaxy.archetype.web.config.session;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 /**
  * @Description
- * @Author duanxiaolei@bytedance.com
+ * @Author galaxy-captain
  * @Date 2020/3/24 3:29 下午
  **/
 @ConfigurationProperties(prefix = "spring.http.session")

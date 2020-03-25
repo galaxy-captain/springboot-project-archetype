@@ -1,8 +1,7 @@
 
-package me.galaxy.archetype.web.config;
+package me.galaxy.archetype.web.config.session;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
