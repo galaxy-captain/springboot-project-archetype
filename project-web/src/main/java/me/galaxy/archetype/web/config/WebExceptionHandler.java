@@ -6,6 +6,7 @@ import me.galaxy.archetype.common.common.WebResult;
 import me.galaxy.archetype.infra.exceptions.AbstractException;
 import me.galaxy.archetype.infra.exceptions.IException;
 import me.galaxy.archetype.infra.exceptions.ServerException;
+import me.galaxy.archetype.infra.session.SessionHolder;
 import me.galaxy.archetype.infra.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -31,38 +32,41 @@ public class WebExceptionHandler implements HandlerExceptionResolver {
 
     @Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-
-        if (!(ex instanceof AbstractException)) {
-            ex = new ServerException(ex, ex.getMessage(), WebErrors.UNKNOWN_ERROR.getCode());
-        }
-
-        AbstractException absEx = (AbstractException) ex;
-        String code = absEx.getCode();
-        String message = absEx.getMessage();
-        String logLevel = absEx.getLogLevel();
-        boolean isDisplay = absEx.isDisplay();
-
-        printExceptionLog(logLevel, absEx);
-
-        WebResult result = new WebResult();
-        result.setCode(code);
-        if (isDebugDisplay() || isDisplay) {
-            result.setMsg(message);
-        } else {
-            result.setMsg(WebErrors.SERVER_ERROR.getMsg());
-        }
-
-        String json = JsonUtils.toJsonString(result);
-
         try {
-            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(json);
-        } catch (IOException e) {
-            log.warn("Failed to write response body.", e);
-        }
+            if (!(ex instanceof AbstractException)) {
+                ex = new ServerException(ex, ex.getMessage(), WebErrors.UNKNOWN_ERROR.getCode());
+            }
 
-        return new ModelAndView();
+            AbstractException absEx = (AbstractException) ex;
+            String code = absEx.getCode();
+            String message = absEx.getMessage();
+            String logLevel = absEx.getLogLevel();
+            boolean isDisplay = absEx.isDisplay();
+
+            printExceptionLog(logLevel, absEx);
+
+            WebResult result = new WebResult();
+            result.setCode(code);
+            if (isDebugDisplay() || isDisplay) {
+                result.setMsg(message);
+            } else {
+                result.setMsg(WebErrors.SERVER_ERROR.getMsg());
+            }
+
+            String json = JsonUtils.toJsonString(result);
+
+            try {
+                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(json);
+            } catch (IOException e) {
+                log.warn("Failed to write response body.", e);
+            }
+
+            return new ModelAndView();
+        } finally {
+            SessionHolder.clear();
+        }
     }
 
     private void printExceptionLog(String logLevel, Exception e) {
