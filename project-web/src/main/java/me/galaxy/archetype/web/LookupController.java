@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Random;
 
 /**
  * @Description
@@ -19,13 +20,17 @@ public class LookupController {
     @Autowired
     private TestFeign testFeign;
 
+    private Random random = new Random();
+
     @GetMapping("/test")
-    public String test() {
+    public String test() throws InterruptedException {
+        Thread.sleep(2000);
         return testFeign.test();
     }
 
     @GetMapping("/test1")
-    public String test1() {
+    public String test1() throws InterruptedException {
+        Thread.sleep(200);
         return "hello world";
     }
 

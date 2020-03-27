@@ -10,6 +10,7 @@ import me.galaxy.archetype.repo.User;
 import me.galaxy.archetype.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @Description
@@ -28,7 +29,7 @@ public class Authorization {
 
     public User login(String acc, String pwd) {
 
-        Account account = accountRepository.queryAccount(acc, pwd);
+        Account account = accountRepository.selectAccount(acc, pwd);
         if (account == null) {
             throw new WebException(WebErrors.LOGIN_ERROR.getMsg(), WebErrors.LOGIN_ERROR.getCode());
         }

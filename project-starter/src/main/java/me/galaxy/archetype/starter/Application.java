@@ -23,8 +23,7 @@ import org.springframework.context.annotation.FilterType;
         basePackages = "me.galaxy.archetype",
         excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),
-                @ComponentScan.Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class),
-                @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = FeignClient.class)
+                @ComponentScan.Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class)
         }
 )
 @EnableAutoConfiguration

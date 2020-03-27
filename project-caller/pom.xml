@@ -15,10 +15,24 @@
 
     <dependencies>
 
+        <!-- modules dependency -->
         <dependency>
             <groupId>me.galaxy</groupId>
             <artifactId>project-business</artifactId>
             <version>1.0.0</version>
+        </dependency>
+
+        <!-- rocketmq dependency-->
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-client</artifactId>
+            <version>4.5.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-acl</artifactId>
+            <version>4.5.1</version>
         </dependency>
 
     </dependencies>
