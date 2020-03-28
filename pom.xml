@@ -28,6 +28,7 @@
 
     <properties>
         <encoding>UTF-8</encoding>
+        <java.version>1.11</java.version>
         <maven.compiler.release>11</maven.compiler.release>
         <spring.cloud.version>2.1.2.RELEASE</spring.cloud.version>
         <spring.boot.version>2.1.6.RELEASE</spring.boot.version>
@@ -121,5 +122,23 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <source>${java.version}</source>-->
+<!--                    <target>${java.version}</target>-->
+<!--                    <testSource>${java.version}</testSource>-->
+<!--                    <testTarget>${java.version}</testTarget>-->
+<!--                    <encoding>${encoding}</encoding>-->
+<!--                    <optimize>true</optimize>-->
+<!--                    <useIncrementalCompilation>false</useIncrementalCompilation>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
 
 </project>

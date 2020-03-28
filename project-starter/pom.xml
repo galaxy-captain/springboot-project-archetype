@@ -14,6 +14,8 @@
     <artifactId>project-starter</artifactId>
 
     <dependencies>
+
+        <!-- modules dependency-->
         <dependency>
             <groupId>me.galaxy</groupId>
             <artifactId>project-web</artifactId>
@@ -24,7 +26,35 @@
             <artifactId>project-caller</artifactId>
             <version>1.0.0</version>
         </dependency>
+
+        <!-- java object layout dependency-->
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-core</artifactId>
+            <version>0.10</version>
+        </dependency>
+
     </dependencies>
 
+    <build>
+        <finalName>project</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>me.galaxy.archetype.starter.Application</mainClass>
+                    <outputDirectory>../output</outputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
