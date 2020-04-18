@@ -9,11 +9,18 @@ import me.galaxy.archetype.repo.AccountRepository;
 import me.galaxy.archetype.repo.User;
 import me.galaxy.archetype.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * @Description
+ * @Description 授权服务
  * @Author galaxy-captain
  * @Date 2020/3/25 8:00 下午
  **/
@@ -23,6 +30,9 @@ public class Authorization {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
     @Autowired
     private UserRepository userRepository;
@@ -35,8 +45,6 @@ public class Authorization {
         }
 
         User user = userRepository.queryUser(account.getUserId());
-
-        log.info("");
 
         return user;
     }

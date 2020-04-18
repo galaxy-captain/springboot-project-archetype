@@ -1,8 +1,10 @@
 server:
   port: 8080
   tomcat:
-    max-threads: 32 #最大执行线程数
+    max-threads: 64 #最大执行线程数
     max-connections: 512 #最大请求连接数
+
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -12,7 +14,7 @@ spring:
     druid:
       enable: true
       min-idle: 8
-      max-active: 32
+      max-active: 64
       max-wait-thread-count: 128
       max-wait: 3000
   redis:
@@ -27,7 +29,7 @@ spring:
       pool:
         min-idle: 8
         max-idle: 16
-        max-active: 32
+        max-active: 64
         max-wait: 1000ms
   http:
     session:
@@ -37,5 +39,5 @@ spring:
       connection-request-timeout: 10000
       connect-timeout: 10000
       socket-timeout: 20000
-      pool-total-max: 64
-      pool-route-max: 16
+      pool-total-max: 128
+      pool-route-max: 64

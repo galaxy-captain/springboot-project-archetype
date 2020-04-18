@@ -24,7 +24,7 @@ public class LoginController {
     @Autowired
     private Authorization authorization;
 
-    @PostMapping
+    @RequestMapping
     public UserRTO login(@RequestBody LoginPTO pto) {
 
         User user = authorization.login(pto.getAccount(), pto.getPassword());
@@ -41,7 +41,6 @@ public class LoginController {
 
     @PostMapping("/logout")
     public UserRTO logout(@RequestBody LogoutPTO pto) {
-
         UserRTO rto = new UserRTO();
         return rto;
     }

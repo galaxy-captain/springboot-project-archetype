@@ -1,5 +1,8 @@
 package me.galaxy.archetype.web;
 
+import me.galaxy.archetype.business.LookupCommandService;
+import me.galaxy.archetype.business.LookupQueryService;
+import me.galaxy.archetype.business.LookupService;
 import me.galaxy.archetype.infra.outer.TestFeign;
 import me.galaxy.archetype.common.lookup.LookupRTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,24 +21,14 @@ import java.util.Random;
 public class LookupController {
 
     @Autowired
-    private TestFeign testFeign;
+    private LookupQueryService lookupQueryService;
 
-    private Random random = new Random();
-
-    @GetMapping("/test")
-    public String test() throws InterruptedException {
-        Thread.sleep(2000);
-        return testFeign.test();
-    }
-
-    @GetMapping("/test1")
-    public String test1() throws InterruptedException {
-        Thread.sleep(200);
-        return "hello world";
-    }
+    @Autowired
+    private LookupCommandService lookupCommandService;
 
     @PostMapping(path = "/{code}/query")
     public LookupRTO query(@PathVariable("code") String code, HttpServletResponse response) {
+        lookupQueryService.queryLookupByCode();
         LookupRTO result = new LookupRTO();
         result.setCode(code);
         result.setName(code + "-query");
@@ -44,6 +37,7 @@ public class LookupController {
 
     @PostMapping(path = "/{code}/add")
     public String add(@PathVariable("code") String code) {
+        lookupCommandService.addLookup();
         return code + "-add";
     }
 

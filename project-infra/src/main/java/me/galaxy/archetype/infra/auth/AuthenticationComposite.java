@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,13 +18,13 @@ import java.util.List;
 @Component
 public class AuthenticationComposite implements Authentication {
 
-    private final List<Authentication> delegates = new LinkedList<>();
+    private List<Authentication> delegates = Collections.emptyList();
 
     @Autowired(required = false)
     public void setDelegates(List<Authentication> delegates) {
         if (CollectionUtils.isNotEmpty(delegates)) {
             AnnotationAwareOrderComparator.sort(delegates);
-            this.delegates.addAll(delegates);
+            this.delegates = Collections.unmodifiableList(delegates);
         }
     }
 

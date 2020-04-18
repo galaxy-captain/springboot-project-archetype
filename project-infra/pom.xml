@@ -26,6 +26,11 @@
             <artifactId>project-common</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>me.galaxy</groupId>
+            <artifactId>spring-cloud-starter-thrift</artifactId>
+            <version>1.0.0</version>
+        </dependency>
 
         <!-- spring dependency -->
         <dependency>
