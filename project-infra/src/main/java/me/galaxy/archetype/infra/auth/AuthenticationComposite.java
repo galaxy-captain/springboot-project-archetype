@@ -2,12 +2,11 @@ package me.galaxy.archetype.infra.auth;
 
 import me.galaxy.archetype.infra.utils.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -15,6 +14,7 @@ import java.util.List;
  * @Author galaxy-captain
  * @Date 2020/3/25 2:00 下午
  **/
+@Primary
 @Component
 public class AuthenticationComposite implements Authentication {
 
@@ -29,6 +29,17 @@ public class AuthenticationComposite implements Authentication {
     }
 
     @Override
+    public String register(Object obj) {
+        for (Authentication delegate : this.delegates) {
+            String token = delegate.register(obj);
+            if (token != null) {
+                return token;
+            }
+        }
+        throw new NullPointerException("Authentication session register failed.");
+    }
+
+    @Override
     public boolean check(String token) {
         for (Authentication delegate : this.delegates) {
             if (delegate.check(token)) {
@@ -36,6 +47,13 @@ public class AuthenticationComposite implements Authentication {
             }
         }
         return false;
+    }
+
+    @Override
+    public void remove(String token) {
+        for (Authentication delegate : this.delegates) {
+            delegate.remove(token);
+        }
     }
 
     public List<Authentication> getDelegates() {

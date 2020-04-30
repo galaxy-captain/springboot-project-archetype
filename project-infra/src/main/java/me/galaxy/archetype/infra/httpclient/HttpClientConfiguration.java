@@ -1,9 +1,7 @@
 package me.galaxy.archetype.infra.httpclient;
 
 import me.galaxy.archetype.infra.utils.CollectionUtils;
-import org.apache.http.HttpException;
 import org.apache.http.HttpRequestInterceptor;
-import org.apache.http.HttpResponse;
 import org.apache.http.HttpResponseInterceptor;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.config.Registry;
@@ -19,7 +17,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.apache.http.protocol.HttpContext;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -30,7 +27,6 @@ import org.springframework.core.annotation.Order;
 
 import javax.annotation.Resource;
 import javax.net.ssl.SSLContext;
-import java.io.IOException;
 import java.util.List;
 
 /**

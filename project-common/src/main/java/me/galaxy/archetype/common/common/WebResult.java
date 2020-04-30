@@ -51,4 +51,8 @@ public class WebResult implements DTO {
         this.data = data;
     }
 
+    public static WebResult success(Object data) {
+        return new WebResult(data);
+    }
+
 }

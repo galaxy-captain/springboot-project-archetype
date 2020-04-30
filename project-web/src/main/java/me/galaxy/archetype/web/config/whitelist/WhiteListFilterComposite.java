@@ -1,6 +1,5 @@
 package me.galaxy.archetype.web.config.whitelist;
 
-import me.galaxy.archetype.infra.auth.Authentication;
 import me.galaxy.archetype.infra.utils.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;

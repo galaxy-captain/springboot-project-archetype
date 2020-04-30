@@ -1,6 +1,12 @@
 spring:
   application:
     name: springboot-project-archetype
+  http:
+    session:
+      token: session.token
+      language: session.lang
+    white-list:
+      - /login
 
 logging:
   config: classpath:logback-spring.xml

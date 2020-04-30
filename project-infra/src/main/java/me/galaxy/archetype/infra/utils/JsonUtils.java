@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Description
+ * @Description JSON工具类
  * @Author galaxy-captain
  * @Date 2020/3/18 10:10 上午
  **/

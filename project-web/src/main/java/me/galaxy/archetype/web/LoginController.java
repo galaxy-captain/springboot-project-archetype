@@ -1,16 +1,24 @@
 package me.galaxy.archetype.web;
 
 import me.galaxy.archetype.common.LoginPTO;
+import me.galaxy.archetype.common.LoginRTO;
 import me.galaxy.archetype.common.LogoutPTO;
 import me.galaxy.archetype.common.UserRTO;
+import me.galaxy.archetype.common.common.WebResult;
 import me.galaxy.archetype.infra.auth.Authorization;
 import me.galaxy.archetype.infra.utils.DateUtils;
 import me.galaxy.archetype.repo.User;
+import me.galaxy.archetype.web.config.session.SessionProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Description
@@ -24,17 +32,24 @@ public class LoginController {
     @Autowired
     private Authorization authorization;
 
-    @RequestMapping
-    public UserRTO login(@RequestBody LoginPTO pto) {
+    @Autowired
+    private SessionProperties sessionProperties;
 
-        User user = authorization.login(pto.getAccount(), pto.getPassword());
+    @PostMapping
+    public LoginRTO login(@RequestBody LoginPTO pto, HttpServletResponse response) {
 
-        UserRTO rto = new UserRTO();
-        rto.setName(user.getName());
-        rto.setSex(user.getSex());
-        rto.setAge(DateUtils.getInterval(user.getBirthday()) / 365);
-        rto.setBirthday(user.getBirthday());
-        rto.setPosition(user.getPosition());
+        // 登录系统
+        String token = authorization.login(pto.getAccount(), pto.getPassword());
+
+        // 设置响应Cookie
+        Cookie cookie = new Cookie(sessionProperties.getToken(), token);
+        cookie.setMaxAge(60 * 60 * 12);
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        response.addCookie(cookie);
+
+        LoginRTO rto = new LoginRTO();
+        rto.setToken(token);
 
         return rto;
     }

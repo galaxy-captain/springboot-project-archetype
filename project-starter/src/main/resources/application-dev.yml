@@ -32,9 +32,6 @@ spring:
         max-active: 64
         max-wait: 1000ms
   http:
-    session:
-      token: session.token
-      language: session.lang
     client:
       connection-request-timeout: 10000
       connect-timeout: 10000

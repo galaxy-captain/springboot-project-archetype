@@ -13,7 +13,6 @@
         <module>project-infra</module>
         <module>project-repo</module>
         <module>project-common</module>
-        <module>spring-cloud-starter-thrift</module>
     </modules>
 
     <parent>

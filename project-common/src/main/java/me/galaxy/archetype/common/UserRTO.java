@@ -22,5 +22,4 @@ public class UserRTO {
 
     private String position;
 
-
 }

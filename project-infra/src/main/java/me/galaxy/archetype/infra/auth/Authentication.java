@@ -10,6 +10,19 @@ import org.springframework.stereotype.Service;
  **/
 public interface Authentication {
 
+    /**
+     * 授权
+     */
+    String register(Object obj);
+
+    /**
+     * 鉴权
+     */
     boolean check(String token);
+
+    /**
+     * 注销
+     */
+    void remove(String token);
 
 }

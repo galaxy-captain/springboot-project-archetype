@@ -26,7 +26,7 @@ public class LookupController {
     @Autowired
     private LookupCommandService lookupCommandService;
 
-    @PostMapping(path = "/{code}/query")
+    @GetMapping(path = "/{code}/query")
     public LookupRTO query(@PathVariable("code") String code, HttpServletResponse response) {
         lookupQueryService.queryLookupByCode();
         LookupRTO result = new LookupRTO();

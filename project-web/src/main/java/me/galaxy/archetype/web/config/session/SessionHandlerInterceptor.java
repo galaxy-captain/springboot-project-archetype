@@ -5,7 +5,9 @@ import me.galaxy.archetype.common.error.WebErrors;
 import me.galaxy.archetype.infra.auth.AuthenticationComposite;
 import me.galaxy.archetype.infra.exceptions.WebException;
 import me.galaxy.archetype.infra.session.SessionHolder;
+import me.galaxy.archetype.web.config.whitelist.PropertiesWhiteListFilter;
 import me.galaxy.archetype.web.config.whitelist.WhiteListFilterComposite;
+import me.galaxy.archetype.web.config.whitelist.WhiteListProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.Ordered;
@@ -24,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Date 2020/3/24 12:22 上午
  **/
 @Order(value = Ordered.HIGHEST_PRECEDENCE)
-@EnableConfigurationProperties(value = SessionProperties.class)
+@EnableConfigurationProperties({SessionProperties.class})
 @Component
 public class SessionHandlerInterceptor implements HandlerInterceptor {
 
@@ -67,11 +69,13 @@ public class SessionHandlerInterceptor implements HandlerInterceptor {
 
     private void authenticateRequest(String url, String token, String language) throws Exception {
 
+        // 白名单
         boolean isWhiteList = whiteListFilterComposite.check(url);
         if (isWhiteList) {
             return;
         }
 
+        // 鉴权
         boolean isAuth = authenticationComposite.check(token);
         if (isAuth) {
             return;
