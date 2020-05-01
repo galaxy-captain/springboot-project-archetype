@@ -1,7 +1,7 @@
 package me.galaxy.archetype.common;
 
 import lombok.Data;
-import me.galaxy.archetype.common.common.RTO;
+import me.galaxy.archetype.common.base.DTO;
 
 /**
  * @Description
@@ -9,7 +9,7 @@ import me.galaxy.archetype.common.common.RTO;
  * @Date 2020/4/30 7:48 下午
  **/
 @Data
-public class LoginRTO implements RTO {
+public class LoginRTO implements DTO.Result {
 
     private String token;
 

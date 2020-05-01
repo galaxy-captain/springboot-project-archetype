@@ -1,15 +1,8 @@
 package me.galaxy.archetype.web.config.whitelist;
 
-import me.galaxy.archetype.web.config.session.SessionProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * @Description
@@ -25,7 +18,41 @@ public class PropertiesWhiteListFilter implements WhiteListFilter {
 
     @Override
     public boolean check(String url) {
-        return this.whiteListProperties.getWhiteList().contains(url);
+        for (String whiteUrl : this.whiteListProperties.getWhiteList()) {
+            if (wildCardMatch(whiteUrl, url) || whiteUrl.equals(url)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean wildCardMatch(String whiteUrl, String url) {
+
+        if (!whiteUrl.contains("*")) {
+            return false;
+        }
+
+        // ** 前缀匹配
+        if (whiteUrl.endsWith("**")) {
+            whiteUrl = whiteUrl.substring(0, whiteUrl.length() - 2);
+            if (whiteUrl.endsWith("/")) {
+                whiteUrl = whiteUrl.substring(0, whiteUrl.length() - 1);
+            }
+            return url.startsWith(whiteUrl);
+        }
+
+        // * 通配符匹配
+        String[] whiteUrlParts = whiteUrl.split("/");
+        String[] urlParts = url.split("/");
+        if (whiteUrlParts.length != urlParts.length) {
+            return false;
+        }
+        for (int i = 0; i < whiteUrlParts.length; i++) {
+            if (!(whiteUrlParts[i].equals("*") || whiteUrlParts[i].equals(urlParts[i]))) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

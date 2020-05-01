@@ -49,4 +49,10 @@ public class Authorization {
         return token;
     }
 
+    public void logout(String token) {
+
+        authentication.remove(token);
+
+    }
+
 }

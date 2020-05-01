@@ -2,12 +2,14 @@
 package me.galaxy.archetype.web.config.session;
 
 import me.galaxy.archetype.common.error.WebErrors;
+import me.galaxy.archetype.infra.auth.Authentication;
 import me.galaxy.archetype.infra.auth.AuthenticationComposite;
 import me.galaxy.archetype.infra.exceptions.WebException;
-import me.galaxy.archetype.infra.session.SessionHolder;
-import me.galaxy.archetype.web.config.whitelist.PropertiesWhiteListFilter;
+import me.galaxy.archetype.infra.session.LocalContext;
+import me.galaxy.archetype.infra.session.UserContext;
+import me.galaxy.archetype.repo.User;
+import me.galaxy.archetype.web.config.whitelist.WhiteListFilter;
 import me.galaxy.archetype.web.config.whitelist.WhiteListFilterComposite;
-import me.galaxy.archetype.web.config.whitelist.WhiteListProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.Ordered;
@@ -34,10 +36,10 @@ public class SessionHandlerInterceptor implements HandlerInterceptor {
     private SessionProperties sessionProperties;
 
     @Autowired
-    private WhiteListFilterComposite whiteListFilterComposite;
+    private WhiteListFilter whiteListFilter;
 
     @Autowired
-    private AuthenticationComposite authenticationComposite;
+    private Authentication<User> authentication;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object method) throws Exception {
@@ -64,20 +66,28 @@ public class SessionHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        SessionHolder.clear();
+        LocalContext.clear();
     }
 
     private void authenticateRequest(String url, String token, String language) throws Exception {
 
+        LocalContext.setLanguage(language);
+
         // 白名单
-        boolean isWhiteList = whiteListFilterComposite.check(url);
+        boolean isWhiteList = whiteListFilter.check(url);
         if (isWhiteList) {
             return;
         }
 
         // 鉴权
-        boolean isAuth = authenticationComposite.check(token);
+        boolean isAuth = authentication.check(token);
         if (isAuth) {
+            User user = authentication.lookup(token);
+            UserContext context = new UserContext();
+            context.setToken(token);
+            context.setLanguage(language);
+            context.setName(user.getName());
+            LocalContext.set(context);
             return;
         }
 

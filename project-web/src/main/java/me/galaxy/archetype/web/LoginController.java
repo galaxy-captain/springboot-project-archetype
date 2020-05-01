@@ -2,12 +2,10 @@ package me.galaxy.archetype.web;
 
 import me.galaxy.archetype.common.LoginPTO;
 import me.galaxy.archetype.common.LoginRTO;
-import me.galaxy.archetype.common.LogoutPTO;
-import me.galaxy.archetype.common.UserRTO;
-import me.galaxy.archetype.common.common.WebResult;
+import me.galaxy.archetype.common.LogoutRTO;
 import me.galaxy.archetype.infra.auth.Authorization;
-import me.galaxy.archetype.infra.utils.DateUtils;
-import me.galaxy.archetype.repo.User;
+import me.galaxy.archetype.infra.session.LocalContext;
+import me.galaxy.archetype.infra.session.UserContext;
 import me.galaxy.archetype.web.config.session.SessionProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @Description
@@ -35,7 +31,7 @@ public class LoginController {
     @Autowired
     private SessionProperties sessionProperties;
 
-    @PostMapping
+    @RequestMapping
     public LoginRTO login(@RequestBody LoginPTO pto, HttpServletResponse response) {
 
         // 登录系统
@@ -55,8 +51,13 @@ public class LoginController {
     }
 
     @PostMapping("/logout")
-    public UserRTO logout(@RequestBody LogoutPTO pto) {
-        UserRTO rto = new UserRTO();
+    public LogoutRTO logout() {
+
+        UserContext context = LocalContext.get();
+        String token = context.getToken();
+        authorization.logout(token);
+
+        LogoutRTO rto = new LogoutRTO();
         return rto;
     }
 

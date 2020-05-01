@@ -3,6 +3,7 @@ package me.galaxy.archetype.infra.auth;
 import me.galaxy.archetype.infra.sequence.Sequences;
 import me.galaxy.archetype.infra.utils.JsonUtils;
 import me.galaxy.archetype.infra.utils.StringUtils;
+import me.galaxy.archetype.repo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -12,8 +13,8 @@ import org.springframework.stereotype.Component;
  * @Author duanxiaolei@bytedance.com
  * @Date 2020/4/30 6:30 下午
  **/
-@Component
-public class RedisAuthentication implements Authentication {
+//@Component
+public class RedisAuthentication implements Authentication<User> {
 
     private final String TOKEN = "TOKEN";
 
@@ -21,12 +22,23 @@ public class RedisAuthentication implements Authentication {
     private StringRedisTemplate redisTemplate;
 
     @Override
-    public String register(Object obj) {
+    public String register(User obj) {
         String token = Sequences.next().toUpperCase();
         String key = TOKEN + ":" + token;
         String value = JsonUtils.toJsonString(obj);
         redisTemplate.opsForValue().set(key, value);
         return token;
+    }
+
+    @Override
+    public User lookup(String token) {
+        String key = TOKEN + ":" + token;
+        String session = redisTemplate.opsForValue().get(key);
+        if (session == null) {
+            return null;
+        }
+        User user = JsonUtils.parseJson(session, User.class);
+        return user;
     }
 
     @Override
@@ -53,6 +65,7 @@ public class RedisAuthentication implements Authentication {
         String key = TOKEN + ":" + token;
 
         boolean isSuccess = redisTemplate.delete(key);
+
     }
 
 }

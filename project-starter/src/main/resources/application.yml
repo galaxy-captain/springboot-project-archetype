@@ -7,6 +7,7 @@ spring:
       language: session.lang
     white-list:
       - /login
+      - /errors
 
 logging:
   config: classpath:logback-spring.xml

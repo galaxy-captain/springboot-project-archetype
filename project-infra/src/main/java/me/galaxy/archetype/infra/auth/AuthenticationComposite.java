@@ -1,6 +1,7 @@
 package me.galaxy.archetype.infra.auth;
 
 import me.galaxy.archetype.infra.utils.CollectionUtils;
+import me.galaxy.archetype.repo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
@@ -16,7 +17,7 @@ import java.util.List;
  **/
 @Primary
 @Component
-public class AuthenticationComposite implements Authentication {
+public class AuthenticationComposite implements Authentication<User> {
 
     private List<Authentication> delegates = Collections.emptyList();
 
@@ -29,7 +30,7 @@ public class AuthenticationComposite implements Authentication {
     }
 
     @Override
-    public String register(Object obj) {
+    public String register(User obj) {
         for (Authentication delegate : this.delegates) {
             String token = delegate.register(obj);
             if (token != null) {
@@ -37,6 +38,17 @@ public class AuthenticationComposite implements Authentication {
             }
         }
         throw new NullPointerException("Authentication session register failed.");
+    }
+
+    @Override
+    public User lookup(String token) {
+        for (Authentication delegate : this.delegates) {
+            User obj = (User) delegate.lookup(token);
+            if (obj != null) {
+                return obj;
+            }
+        }
+        return null;
     }
 
     @Override

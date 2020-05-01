@@ -2,6 +2,7 @@ package me.galaxy.archetype.web.config.whitelist;
 
 import me.galaxy.archetype.infra.utils.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @Author galaxy-captain
  * @Date 2020/3/25 2:33 下午
  **/
+@Primary
 @Component
 public class WhiteListFilterComposite  implements WhiteListFilter{
 

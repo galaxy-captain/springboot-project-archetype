@@ -8,12 +8,17 @@ import org.springframework.stereotype.Service;
  * @Author galaxy-captain
  * @Date 2020/3/25 1:57 下午
  **/
-public interface Authentication {
+public interface Authentication<T> {
 
     /**
      * 授权
      */
-    String register(Object obj);
+    String register(T obj);
+
+    /**
+     * 查看
+     */
+    T lookup(String token);
 
     /**
      * 鉴权

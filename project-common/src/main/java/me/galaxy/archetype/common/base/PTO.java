@@ -1,7 +1,5 @@
 
-package me.galaxy.archetype.common.common;
-
-import java.io.Serializable;
+package me.galaxy.archetype.common.base;
 
 /**
  * @Description

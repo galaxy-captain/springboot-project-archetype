@@ -2,11 +2,11 @@ package me.galaxy.archetype.web.config;
 
 import lombok.extern.slf4j.Slf4j;
 import me.galaxy.archetype.common.error.WebErrors;
-import me.galaxy.archetype.common.common.WebResult;
+import me.galaxy.archetype.common.base.WebResult;
 import me.galaxy.archetype.infra.exceptions.AbstractException;
 import me.galaxy.archetype.infra.exceptions.IException;
 import me.galaxy.archetype.infra.exceptions.ServerException;
-import me.galaxy.archetype.infra.session.SessionHolder;
+import me.galaxy.archetype.infra.session.LocalContext;
 import me.galaxy.archetype.infra.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -65,7 +65,7 @@ public class WebExceptionHandler implements HandlerExceptionResolver {
 
             return new ModelAndView();
         } finally {
-            SessionHolder.clear();
+            LocalContext.clear();
         }
     }
 

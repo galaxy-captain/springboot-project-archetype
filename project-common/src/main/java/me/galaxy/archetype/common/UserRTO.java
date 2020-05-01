@@ -1,6 +1,7 @@
 package me.galaxy.archetype.common;
 
 import lombok.Data;
+import me.galaxy.archetype.common.base.DTO;
 
 import java.util.Date;
 
@@ -10,7 +11,7 @@ import java.util.Date;
  * @Date 2020/3/25 10:36 下午
  **/
 @Data
-public class UserRTO {
+public class UserRTO implements DTO.Result {
 
     private String name;
 

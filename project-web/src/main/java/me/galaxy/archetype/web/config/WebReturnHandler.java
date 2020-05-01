@@ -1,7 +1,7 @@
 package me.galaxy.archetype.web.config;
 
 import lombok.extern.slf4j.Slf4j;
-import me.galaxy.archetype.common.common.WebResult;
+import me.galaxy.archetype.common.base.WebResult;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;

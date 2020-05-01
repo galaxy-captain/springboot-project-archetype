@@ -4,7 +4,6 @@ server:
     max-threads: 64 #最大执行线程数
     max-connections: 512 #最大请求连接数
 
-
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -19,7 +18,7 @@ spring:
       max-wait: 3000
   redis:
     ssl: false
-    host: localhost
+    host: 127.0.0.1
     port: 6379
     password:
     database: 0

@@ -1,6 +1,7 @@
 package me.galaxy.archetype.common;
 
 import lombok.Data;
+import me.galaxy.archetype.common.base.DTO;
 
 /**
  * @Description
@@ -8,8 +9,6 @@ import lombok.Data;
  * @Date 2020/3/25 10:45 下午
  **/
 @Data
-public class LogoutPTO {
-
-    private String token;
+public class LogoutRTO implements DTO.Result {
 
 }

@@ -1,4 +1,4 @@
-package me.galaxy.archetype.common.common;
+package me.galaxy.archetype.common.base;
 
 public class WebResult implements DTO {
 
