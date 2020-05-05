@@ -5,7 +5,7 @@ import me.galaxy.archetype.common.base.DTO;
 
 /**
  * @Description
- * @Author duanxiaolei@bytedance.com
+ * @Author galaxy-captain
  * @Date 2020/4/30 7:48 下午
  **/
 @Data

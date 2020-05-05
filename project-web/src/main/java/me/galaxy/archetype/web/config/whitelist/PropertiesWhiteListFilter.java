@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @Description
- * @Author duanxiaolei@bytedance.com
+ * @Author galaxy-captain
  * @Date 2020/4/30 6:52 下午
  **/
 @EnableConfigurationProperties({WhiteListProperties.class})

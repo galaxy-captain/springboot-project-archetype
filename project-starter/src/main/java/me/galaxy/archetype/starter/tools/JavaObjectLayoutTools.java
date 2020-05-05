@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
  * @Description
- * @Author duanxiaolei@bytedance.com
+ * @Author galaxy-captain
  * @Date 2020/3/28 5:24 下午
  **/
 public class JavaObjectLayoutTools {

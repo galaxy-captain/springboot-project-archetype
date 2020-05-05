@@ -2,7 +2,7 @@ package me.galaxy.archetype.infra.sequence;
 
 /**
  * @Description
- * @Author duanxiaolei@bytedance.com
+ * @Author galaxy-captain
  * @Date 2020/4/30 6:11 下午
  **/
 public class Sequences {

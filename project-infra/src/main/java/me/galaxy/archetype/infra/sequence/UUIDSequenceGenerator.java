@@ -4,7 +4,7 @@ import java.util.UUID;
 
 /**
  * @Description
- * @Author duanxiaolei@bytedance.com
+ * @Author galaxy-captain
  * @Date 2020/4/30 6:02 下午
  **/
 public class UUIDSequenceGenerator implements SequenceGenerator {
