@@ -6,7 +6,7 @@ import me.galaxy.archetype.common.base.WebResult;
 import me.galaxy.archetype.infra.exceptions.AbstractException;
 import me.galaxy.archetype.infra.exceptions.IException;
 import me.galaxy.archetype.infra.exceptions.ServerException;
-import me.galaxy.archetype.infra.session.LocalContext;
+import me.galaxy.archetype.infra.context.LocalContext;
 import me.galaxy.archetype.infra.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -27,7 +27,7 @@ import java.io.IOException;
 @Component
 public class WebExceptionHandler implements HandlerExceptionResolver {
 
-    @Value("${spring.profiles.active:prd}")
+    @Value("${spring.profiles.active}")
     private String env;
 
     @Override

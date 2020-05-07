@@ -1,14 +1,14 @@
 package me.galaxy.archetype.business;
 
+import me.galaxy.archetype.repo.LookupRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.misc.Unsafe;
-
-import java.io.RandomAccessFile;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.SocketChannel;
 
 @Service
 public class LookupService implements LookupQueryService, LookupCommandService {
+
+    @Autowired
+    private LookupRepository lookupRepository;
 
     @Override
     public void addLookup() {
@@ -16,8 +16,8 @@ public class LookupService implements LookupQueryService, LookupCommandService {
     }
 
     @Override
-    public void queryLookupByCode() {
-
+    public String queryLookupByCode() {
+        return lookupRepository.selectLookup().getName();
     }
 
 }

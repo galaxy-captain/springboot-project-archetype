@@ -1,6 +1,4 @@
-package me.galaxy.archetype.infra.session;
-
-import me.galaxy.archetype.repo.User;
+package me.galaxy.archetype.infra.context;
 
 /**
  * @Description

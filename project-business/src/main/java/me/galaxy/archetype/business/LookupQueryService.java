@@ -7,6 +7,6 @@ package me.galaxy.archetype.business;
  **/
 public interface LookupQueryService {
 
-    void queryLookupByCode();
+    String queryLookupByCode();
 
 }

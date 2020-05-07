@@ -3,13 +3,11 @@ package me.galaxy.archetype.web.config.session;
 
 import me.galaxy.archetype.common.error.WebErrors;
 import me.galaxy.archetype.infra.auth.Authentication;
-import me.galaxy.archetype.infra.auth.AuthenticationComposite;
 import me.galaxy.archetype.infra.exceptions.WebException;
-import me.galaxy.archetype.infra.session.LocalContext;
-import me.galaxy.archetype.infra.session.UserContext;
+import me.galaxy.archetype.infra.context.LocalContext;
+import me.galaxy.archetype.infra.context.UserContext;
 import me.galaxy.archetype.repo.User;
 import me.galaxy.archetype.web.config.whitelist.WhiteListFilter;
-import me.galaxy.archetype.web.config.whitelist.WhiteListFilterComposite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.Ordered;

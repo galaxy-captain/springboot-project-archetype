@@ -16,7 +16,6 @@ import org.springframework.web.client.RestTemplate;
  * @Author galaxy-captain
  * @Date 2020/3/23 3:52 下午
  **/
-@EnableFeignClients(basePackages = {"me.galaxy.archetype.infra"})
 @Configuration
 public class FeignConfiguration {
 

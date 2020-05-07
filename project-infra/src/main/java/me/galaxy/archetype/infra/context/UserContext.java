@@ -1,4 +1,4 @@
-package me.galaxy.archetype.infra.session;
+package me.galaxy.archetype.infra.context;
 
 import lombok.Data;
 

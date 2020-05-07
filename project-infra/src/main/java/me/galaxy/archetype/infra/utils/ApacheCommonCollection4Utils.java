@@ -16,7 +16,7 @@ import java.util.*;
  * @Author galaxy-captain
  * @Date 2020/3/23 2:13 下午
  **/
-public class ApacheCommonCollection4Utils {
+class ApacheCommonCollection4Utils {
     /**
      * Helper class to easily access cardinality properties of two collections.
      *

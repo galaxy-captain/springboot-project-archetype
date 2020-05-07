@@ -9,7 +9,7 @@ import java.util.Date;
  * @Author galaxy-captain
  * @Date 2020/3/25 11:22 下午
  **/
-public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
+public final class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 
     /**
      * 获取当前日期时间

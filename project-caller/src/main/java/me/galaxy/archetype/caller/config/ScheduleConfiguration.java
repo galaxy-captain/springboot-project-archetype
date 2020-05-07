@@ -1,4 +1,4 @@
-package me.galaxy.archetype.caller;
+package me.galaxy.archetype.caller.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

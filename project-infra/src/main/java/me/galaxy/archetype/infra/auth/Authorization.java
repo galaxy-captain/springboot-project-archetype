@@ -27,7 +27,7 @@ public class Authorization {
     private AccountRepository accountRepository;
 
     @Autowired
-    private Authentication authentication;
+    private Authentication<User> authentication;
 
     @Autowired
     private UserRepository userRepository;

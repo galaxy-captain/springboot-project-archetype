@@ -1,15 +1,11 @@
 package me.galaxy.archetype.web;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import me.galaxy.archetype.business.LookupCommandService;
 import me.galaxy.archetype.business.LookupQueryService;
-import me.galaxy.archetype.business.LookupService;
-import me.galaxy.archetype.infra.outer.TestFeign;
 import me.galaxy.archetype.common.lookup.LookupRTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
-import java.util.Random;
 
 /**
  * @Description
@@ -27,7 +23,7 @@ public class LookupController {
     private LookupCommandService lookupCommandService;
 
     @GetMapping(path = "/{code}/query")
-    public LookupRTO query(@PathVariable("code") String code, HttpServletResponse response) {
+    public LookupRTO query(@PathVariable("code") String code) {
         lookupQueryService.queryLookupByCode();
         LookupRTO result = new LookupRTO();
         result.setCode(code);
