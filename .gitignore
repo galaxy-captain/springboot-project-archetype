@@ -2,6 +2,7 @@
 build
 target
 *.iml
+*.class
 *.jar
 output
 log
