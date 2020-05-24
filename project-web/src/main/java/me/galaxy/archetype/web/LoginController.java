@@ -3,6 +3,7 @@ package me.galaxy.archetype.web;
 import me.galaxy.archetype.common.LoginPTO;
 import me.galaxy.archetype.common.LoginRTO;
 import me.galaxy.archetype.common.LogoutRTO;
+import me.galaxy.archetype.common.RegisterPTO;
 import me.galaxy.archetype.infra.auth.Authorization;
 import me.galaxy.archetype.infra.context.LocalContext;
 import me.galaxy.archetype.infra.context.UserContext;
@@ -59,6 +60,11 @@ public class LoginController {
 
         LogoutRTO rto = new LogoutRTO();
         return rto;
+    }
+
+    @PostMapping("/register")
+    public void register(@RequestBody RegisterPTO pto) {
+        authorization.register(pto.getAccount(), pto.getPassword(), pto.getName(), pto.getSex(), pto.getBirthday(), pto.getPosition());
     }
 
 }

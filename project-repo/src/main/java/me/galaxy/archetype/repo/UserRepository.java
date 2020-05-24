@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,6 +21,9 @@ public class UserRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private UserMapper userMapper;
 
     public User queryUser(Long id) {
         List<User> list = jdbcTemplate.query("select name,sex,birthday,position from blog_user where id=?",
@@ -38,6 +42,19 @@ public class UserRepository {
             return null;
         }
         return list.get(0);
+    }
+
+    public User insert(String name, String sex, Date birthday, String position) {
+
+        User orm = new User();
+        orm.setName(name);
+        orm.setSex(sex);
+        orm.setBirthday(birthday);
+        orm.setPosition(position);
+
+        int result = userMapper.insert(orm);
+
+        return orm;
     }
 
 }

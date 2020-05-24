@@ -13,7 +13,7 @@ import java.util.Map;
  * @Author galaxy-captain
  * @Date 2020/3/25 2:07 下午
  **/
-@Component
+//@Component
 public class LocalAuthentication implements Authentication<User> {
 
     private final String TOKEN = "TOKEN";

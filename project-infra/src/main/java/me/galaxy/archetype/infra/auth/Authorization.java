@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 /**
  * @Description 授权服务
@@ -32,12 +35,18 @@ public class Authorization {
     @Autowired
     private UserRepository userRepository;
 
+    @Transactional
+    public void register(String acc, String password, String name, String sex, Date birthday, String position) {
+        User user = userRepository.insert(name, sex, birthday, position);
+        Account account = accountRepository.insert(acc, password, user.getId(), user.getName());
+    }
+
     public String login(String acc, String pwd) {
 
         // 验证用户名和密码
         Account account = accountRepository.selectAccount(acc, pwd);
         if (account == null) {
-            throw new WebException(WebErrors.LOGIN_ERROR.getMsg(), WebErrors.LOGIN_ERROR.getCode());
+            throw new WebException(WebErrors.LOGIN_ERROR);
         }
 
         // 查询用户信息
@@ -50,9 +59,7 @@ public class Authorization {
     }
 
     public void logout(String token) {
-
         authentication.remove(token);
-
     }
 
 }

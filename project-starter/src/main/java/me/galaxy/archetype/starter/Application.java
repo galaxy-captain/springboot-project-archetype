@@ -1,6 +1,8 @@
 package me.galaxy.archetype.starter;
 
 import lombok.extern.slf4j.Slf4j;
+import me.galaxy.archetype.common.UserRTO;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
@@ -18,6 +20,8 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.core.env.Environment;
 
 import java.io.PrintStream;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @Description

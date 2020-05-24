@@ -7,7 +7,21 @@ spring:
       language: session.lang
     white-list:
       - /login
+      - /login/register
       - /errors
+
+server:
+  servlet:
+    context-path:
+
+mybatis:
+  base-packages: me.galaxy.archetype.repo
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    local-cache-scope: STATEMENT
 
 logging:
   config: classpath:logback-spring.xml
+

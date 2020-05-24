@@ -5,17 +5,6 @@ server:
     max-connections: 512 #最大请求连接数
 
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/blog_master?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true&serverTimezone=GMT%2B8
-    username: root
-    password: Aa761349852.
-    druid:
-      enable: true
-      min-idle: 8
-      max-active: 64
-      max-wait-thread-count: 128
-      max-wait: 3000
   redis:
     ssl: false
     host: 127.0.0.1

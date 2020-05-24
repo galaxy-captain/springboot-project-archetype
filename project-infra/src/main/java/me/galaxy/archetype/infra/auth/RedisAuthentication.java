@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @Author galaxy-captain
  * @Date 2020/4/30 6:30 下午
  **/
-//@Component
+@Component
 public class RedisAuthentication implements Authentication<User> {
 
     private final String TOKEN = "TOKEN";

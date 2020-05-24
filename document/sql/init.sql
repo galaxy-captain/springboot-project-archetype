@@ -8,7 +8,7 @@ create table blog_account
     salt      varchar(32) not null comment '咸盐',
     user_id   varchar(32) not null comment '用户id',
     user_name varchar(32) not null comment '用户名',
-    constraint account
+    constraint accountF
         unique (account)
 )
     comment '用户账号' charset = utf8mb4;

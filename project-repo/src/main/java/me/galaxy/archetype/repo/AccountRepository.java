@@ -2,8 +2,13 @@ package me.galaxy.archetype.repo;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.datasource.DataSourceUtils;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -24,7 +29,7 @@ public class AccountRepository {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    private DataSource dataSource;
+    private AccountMapper accountMapper;
 
     public Account selectAccount(String account, String password) {
         List<Account> list = jdbcTemplate.query(
@@ -46,6 +51,20 @@ public class AccountRepository {
             return null;
         }
         return list.get(0);
+    }
+
+    public Account insert(String account, String password, Long userId, String userName) {
+
+        Account orm = new Account();
+        orm.setAccount(account);
+        orm.setPassword(password);
+        orm.setSalt("100000");
+        orm.setUserId(userId);
+        orm.setUsername(userName);
+
+        int result = accountMapper.insertSelective(orm);
+
+        return orm;
     }
 
 }
