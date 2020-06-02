@@ -1,12 +1,22 @@
 
 package me.galaxy.archetype.infra.exceptions;
 
+import me.galaxy.archetype.common.error.WebErrors;
+
 /**
  * @Description
  * @Author galaxy-captain
  * @Date 2020/3/17 10:55 下午
  **/
 public class ServerException extends AbstractException {
+
+    public ServerException(WebErrors errors) {
+        super(errors.getMsg(), errors.getCode(), WARN, false);
+    }
+
+    public ServerException(String message) {
+        super(message, WebErrors.SERVER_ERROR.getCode(), WARN, false);
+    }
 
     public ServerException(String message, String code) {
         super(message, code, WARN, false);
